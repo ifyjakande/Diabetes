@@ -371,10 +371,22 @@ df = pd.DataFrame.from_dict([my_predictors])
 prediction = diabetes.predict(df)
 
 if st.button("Predict", key="predict_button"):
+    # Get prediction and probability
+    prediction = diabetes.predict(df)
+    prediction_proba = diabetes.predict_proba(df)
+    
     result = prediction[0]
+    probability = prediction_proba[0][1]  # Probability of being readmitted
+    
     if result == 0:
-        result = 'Not Readmitted'
+        st.markdown(f"<h2 style='color: #2ecc71;'>Patient Predicted: Not Readmitted</h2>", unsafe_allow_html=True)
     else:
-        result = 'Readmitted'
-
-    st.markdown(f"<h2 style='color: #0066cc;'>Patient Predicted to be: {result}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2 style='color: #e74c3c;'>Patient Predicted: Readmitted</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='color: #e74c3c;'>Readmission Probability: {probability:.2%}</h3>", unsafe_allow_html=True)
+    
+    # # Additional information
+    # st.markdown("---")
+    # st.markdown("### Prediction Details:")
+    # st.markdown(f"- **Prediction Confidence:** {max(prediction_proba[0]):.2%}")
+    # st.markdown(f"- **Not Readmitted Probability:** {prediction_proba[0][0]:.2%}")
+    # st.markdown(f"- **Readmitted Probability:** {prediction_proba[0][1]:.2%}")
