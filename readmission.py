@@ -3,47 +3,76 @@ import pickle
 import joblib
 import pandas as pd
 
-st.title("Predictive Application for 30-Day Diabetes Readmission Risk")
+# Set page config for a wider layout
+st.set_page_config(layout="wide")
 
-st.text("An App Built by Ifeanyi Ejiofor")
-st.text("Student ID: B00898539")
-st.text("School of Computing, Engineering and Intelligent Systems, Magee Campus")
-st.text("Supervisor: Girijesh Prasad")
+# Custom CSS to inject for styling
+st.markdown("""
+<style>
+    .main-title {
+        font-size: 2.5rem;
+        color: #0066cc;
+    }
+    .subtitle {
+        font-size: 1.2rem;
+        color: #4d4d4d;
+    }
+    .stButton>button {
+        color: white;
+        background-color: #0066cc;
+        border-radius: 5px;
+    }
+    .stButton>button:hover {
+        background-color: #004c99;
+    }
+</style>
+""", unsafe_allow_html=True)
 
-st.write("This app uses 17 inputs to classify patients as readmitted or not readmitted using the model built on the diabetes dataset. Use the form below to get started!")
+st.markdown("<h1 class='main-title'>Predictive Application for 30-Day Diabetes Readmission Risk</h1>", unsafe_allow_html=True)
+
+st.markdown("<p class='subtitle'>An App Built by Ifeanyi Ejiofor</p>", unsafe_allow_html=True)
+st.markdown("<p class='subtitle'>Student ID: B00898539</p>", unsafe_allow_html=True)
+st.markdown("<p class='subtitle'>School of Computing, Engineering and Intelligent Systems, Magee Campus</p>", unsafe_allow_html=True)
+st.markdown("<p class='subtitle'>Supervisor: Girijesh Prasad</p>", unsafe_allow_html=True)
+
+st.write("This app uses 27 inputs to classify patients as readmitted or not readmitted using the model built on the diabetes dataset. Use the form below to get started!")
 
 model = open("readmission_model.pickle", "rb")
 diabetes = pickle.load(model)
 model.close()
 
 
-number_emergency = st.number_input("Number of emergency visits of the patient in the year preceding the encounter:", min_value = 0)
-number_inpatient = st.number_input("Number of inpatient visits of the patient in the year preceding the encounter:", min_value = 0)
-number_diagnoses = st.number_input("Number of diagnoses entered to the system:", min_value = 1)
-race = st.selectbox("Race:",  options = ["Caucasian", "African American", "Hispanic", "Asian", "Others"])
-gender = st.selectbox("Gender:",  options = ["Male", "Female"])
-metformin = st.selectbox("Was metformin prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-repaglinide = st.selectbox("Was repaglinide prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-nateglinide = st.selectbox("Was nateglinide prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-chlorpropamide = st.selectbox("Was chlorpropamide prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-glimepiride = st.selectbox("Was glimepiride prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-acetohexamide =  st.selectbox("Was acetohexamide prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-glipizide = st.selectbox("Was glipizide prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-tolbutamide = st.selectbox("Was tolbutamide prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-pioglitazone = st.selectbox("Was pioglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-rosiglitazone = st.selectbox("Was rosiglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-acarbose = st.selectbox("Was acarbose prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-miglitol = st.selectbox("Was miglitol prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-troglitazone = st.selectbox("Was troglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-tolazamide = st.selectbox("Was tolazamide prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-insulin = st.selectbox("Was insulin prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-glyburide_metformin = st.selectbox("Was glyburide-metformin prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-glipizide_metformin = st.selectbox("Was glipizide-metformin prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-glimepiride_pioglitazone = st.selectbox("Was glimepiride-pioglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-metformin_rosiglitazone = st.selectbox("Was metformin-rosiglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-metformin_pioglitazone = st.selectbox("Was metformin-pioglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-change = st.selectbox("Was there a change in diabetic medications?:", options = ["No", "Yes"])
-diabetesmed = st.selectbox("Was there any diabetic medication prescribed?:", options = ["No", "Yes"])
+# Updated input form with professional default values
+number_emergency = st.number_input("Number of emergency visits in the past year:", min_value=0, value=1)
+number_inpatient = st.number_input("Number of inpatient visits in the past year:", min_value=0, value=0)
+number_diagnoses = st.number_input("Number of diagnoses entered to the system:", min_value=1, value=5)
+race = st.selectbox("Race:", options=["Caucasian", "African American", "Hispanic", "Asian", "Others"], index=0)
+gender = st.selectbox("Gender:", options=["Male", "Female"], index=0)
+
+# Default most medications to "No" as it's likely the most common state
+medication_options = ["No", "Up", "Down", "Steady"]
+metformin = st.selectbox("Metformin prescription status:", options=medication_options, index=0)
+repaglinide = st.selectbox("Repaglinide prescription status:", options=medication_options, index=0)
+nateglinide = st.selectbox("Nateglinide prescription status:", options=medication_options, index=0)
+chlorpropamide = st.selectbox("Chlorpropamide prescription status:", options=medication_options, index=0)
+glimepiride = st.selectbox("Glimepiride prescription status:", options=medication_options, index=0)
+acetohexamide = st.selectbox("Acetohexamide prescription status:", options=medication_options, index=0)
+glipizide = st.selectbox("Glipizide prescription status:", options=medication_options, index=0)
+tolbutamide = st.selectbox("Tolbutamide prescription status:", options=medication_options, index=0)
+pioglitazone = st.selectbox("Pioglitazone prescription status:", options=medication_options, index=0)
+rosiglitazone = st.selectbox("Rosiglitazone prescription status:", options=medication_options, index=0)
+acarbose = st.selectbox("Acarbose prescription status:", options=medication_options, index=0)
+miglitol = st.selectbox("Miglitol prescription status:", options=medication_options, index=0)
+troglitazone = st.selectbox("Troglitazone prescription status:", options=medication_options, index=0)
+tolazamide = st.selectbox("Tolazamide prescription status:", options=medication_options, index=0)
+insulin = st.selectbox("Insulin prescription status:", options=medication_options, index=0)
+glyburide_metformin = st.selectbox("Glyburide-metformin prescription status:", options=medication_options, index=0)
+glipizide_metformin = st.selectbox("Glipizide-metformin prescription status:", options=medication_options, index=0)
+glimepiride_pioglitazone = st.selectbox("Glimepiride-pioglitazone prescription status:", options=medication_options, index=0)
+metformin_rosiglitazone = st.selectbox("Metformin-rosiglitazone prescription status:", options=medication_options, index=0)
+metformin_pioglitazone = st.selectbox("Metformin-pioglitazone prescription status:", options=medication_options, index=0)
+change = st.selectbox("Was there a change in diabetic medications?:", options=["No", "Yes"], index=0)
+diabetesmed = st.selectbox("Was there any diabetic medication prescribed?:", options=["Yes", "No"], index=0)
 
 
 race_africanamerican, race_asian, race_caucasian, race_hispanic, race_others = 0, 0, 0, 0, 0
@@ -341,11 +370,11 @@ df = pd.DataFrame.from_dict([my_predictors])
 
 prediction = diabetes.predict(df)
 
-if st.button("Predict"):
+if st.button("Predict", key="predict_button"):
     result = prediction[0]
     if result == 0:
         result = 'Not Readmitted'
     else:
         result = 'Readmitted'
 
-    st.write("Patient Predicted to be {}".format(result))
+    st.markdown(f"<h2 style='color: #0066cc;'>Patient Predicted to be: {result}</h2>", unsafe_allow_html=True)
