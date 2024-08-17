@@ -1,45 +1,77 @@
 import streamlit as st
 import pickle
-import joblib
 import pandas as pd
 
-# Set page config for a wider layout
-st.set_page_config(layout="wide")
+# Set page config for a centered layout
+st.set_page_config(layout="centered", page_title="Diabetes Readmission Risk Predictor")
 
-# Custom CSS to inject for styling
+# Custom CSS for a more professional look
 st.markdown("""
 <style>
+    .reportview-container .main .block-container {
+        max-width: 800px;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
     .main-title {
-        font-size: 2.5rem;
-        color: #0066cc;
+        font-size: 2rem;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 2rem;
     }
     .subtitle {
-        font-size: 1.2rem;
-        color: #4d4d4d;
+        font-size: 1rem;
+        color: #34495e;
+        text-align: center;
+        margin-bottom: 0.5rem;
     }
     .stButton>button {
         color: white;
-        background-color: #0066cc;
+        background-color: #3498db;
         border-radius: 5px;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
     }
     .stButton>button:hover {
-        background-color: #004c99;
+        background-color: #2980b9;
+    }
+    .prediction-result {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 2rem;
+        padding: 1rem;
+        border-radius: 5px;
+    }
+    .prediction-result.not-readmitted {
+        background-color: #2ecc71;
+        color: white;
+    }
+    .prediction-result.readmitted {
+        background-color: #e74c3c;
+        color: white;
     }
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h1 class='main-title'>Predictive Application for 30-Day Diabetes Readmission Risk</h1>", unsafe_allow_html=True)
-
-st.markdown("<p class='subtitle'>An App Built by Ifeanyi Ejiofor</p>", unsafe_allow_html=True)
+# App title and subtitle
+st.markdown("<h1 class='main-title'>Diabetes Readmission Risk Predictor</h1>", unsafe_allow_html=True)
+st.markdown("<p class='subtitle'>Developed by Ifeanyi Ejiofor</p>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Student ID: B00898539</p>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>School of Computing, Engineering and Intelligent Systems, Magee Campus</p>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Supervisor: Girijesh Prasad</p>", unsafe_allow_html=True)
 
-st.write("This app uses 27 inputs to classify patients as readmitted or not readmitted using the model built on the diabetes dataset. Use the form below to get started!")
+st.write("This application predicts the 30-day readmission risk for diabetes patients based on various factors. Please fill in the form below with the patient's information to get a prediction.")
 
-model = open("readmission_model.pickle", "rb")
-diabetes = pickle.load(model)
-model.close()
+# Load the model
+def load_model():
+    with open("readmission_model.pickle", "rb") as model_file:
+        return pickle.load(model_file)
+
+diabetes = load_model()
 
 
 # Updated input form with professional default values
@@ -370,7 +402,8 @@ df = pd.DataFrame.from_dict([my_predictors])
 
 prediction = diabetes.predict(df)
 
-if st.button("Predict", key="predict_button"):
+# Prediction button and result display
+if st.button("Predict Readmission Risk", key="predict_button"):
     # Get prediction and probability
     prediction = diabetes.predict(df)
     prediction_proba = diabetes.predict_proba(df)
@@ -379,14 +412,19 @@ if st.button("Predict", key="predict_button"):
     probability = prediction_proba[0][1]  # Probability of being readmitted
     
     if result == 0:
-        st.markdown(f"<h2 style='color: #2ecc71;'>Patient Predicted: Not Readmitted</h2>", unsafe_allow_html=True)
+        st.markdown(f"""
+        <div class='prediction-result not-readmitted'>
+            Patient Predicted: Not Readmitted
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.markdown(f"<h2 style='color: #e74c3c;'>Patient Predicted: Readmitted</h2>", unsafe_allow_html=True)
-        st.markdown(f"<h3 style='color: #e74c3c;'>Readmission Probability: {probability:.2%}</h3>", unsafe_allow_html=True)
-    
-    # # Additional information
-    # st.markdown("---")
-    # st.markdown("### Prediction Details:")
-    # st.markdown(f"- **Prediction Confidence:** {max(prediction_proba[0]):.2%}")
-    # st.markdown(f"- **Not Readmitted Probability:** {prediction_proba[0][0]:.2%}")
-    # st.markdown(f"- **Readmitted Probability:** {prediction_proba[0][1]:.2%}")
+        st.markdown(f"""
+        <div class='prediction-result readmitted'>
+            Patient Predicted: Readmitted<br>
+            Readmission Probability: {probability:.2%}
+        </div>
+        """, unsafe_allow_html=True)
+
+# Footer
+st.markdown("---")
+st.markdown("<p style='text-align: center; color: #7f8c8d;'>© 2024 Diabetes Readmission Risk Predictor. All rights reserved.</p>", unsafe_allow_html=True)
