@@ -40,13 +40,11 @@ insulin = st.selectbox("Was insulin prescribed or was there a change in the dosa
 glyburide_metformin = st.selectbox("Was glyburide-metformin prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
 glipizide_metformin = st.selectbox("Was glipizide-metformin prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
 glimepiride_pioglitazone = st.selectbox("Was glimepiride-pioglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-metformin_rosiglitazone = st.selectbox("Was metformin_rosiglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-metformin_pioglitazone = st.selectbox("Was metformin_pioglizatone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
+metformin_rosiglitazone = st.selectbox("Was metformin-rosiglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
+metformin_pioglitazone = st.selectbox("Was metformin-pioglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
 change = st.selectbox("Was there a change in diabetic medications?:", options = ["No", "Yes"])
 diabetesmed = st.selectbox("Was there any diabetic medication prescribed?:", options = ["No", "Yes"])
 
-# glyburide = st.selectbox("Was glyburide prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
-# metformin_pioglitazone = st.selectbox("Was metformin_pioglitazone prescribed or was there a change in the dosage?:", options = ["Up", "Down", "Steady", "No"])
 
 race_africanamerican, race_asian, race_caucasian, race_hispanic, race_others = 0, 0, 0, 0, 0
 if race == 'African American':
@@ -301,10 +299,6 @@ if diabetesmed == 'No':
     diabetesmed_no = 1
 elif diabetesmed  == 'Yes':
     diabetesmed_yes = 1
-
-
-
-
 
     
 my_predictors = {
