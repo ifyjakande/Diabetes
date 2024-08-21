@@ -146,7 +146,7 @@ def main():
         'diabetesmed_yes': int(diabetesmed == "Yes")
     }
 
-    df = pd.DataFrame([my_predictors])
+    df = pd.DataFrame([my_predictors]) # selected features converted to a dataframe
 
     if st.button("Predict Readmission Risk", key="predict_button"):
         prediction = diabetes.predict(df)
