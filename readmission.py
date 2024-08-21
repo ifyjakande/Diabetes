@@ -6,9 +6,6 @@ def load_model():
     with open("readmission_model.pickle", "rb") as model_file:
         return pickle.load(model_file)
 
-def process_medication(med_status):
-    return [int(med_status == status) for status in ["Up", "Down", "Steady", "No"]]
-
 def main():
     st.set_page_config(layout="centered", page_title="Diabetes Readmission Risk Predictor")
     
