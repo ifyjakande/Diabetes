@@ -6,36 +6,24 @@
 This project was developed for educational purposes only. It should not be used for making real medical decisions. Always consult with qualified healthcare professionals for medical advice.
 
 ## 🔍 Overview
-The Diabetes Readmission Risk Predictor is a web-based application that helps healthcare professionals assess the 30-day hospital readmission risk for diabetes patients. Using machine learning, it analyzes various patient factors and medication histories to predict the likelihood of readmission.
+A simple healthcare analytics solution that predicts hospital readmission risk for diabetes patients. Using machine learning, it analyzes patient data to predict 30-day readmission risk.
 
 ![Application Screenshot](diabetes-app.jpg)
 
 ## ✨ Features
-- **Patient Information Analysis**: Processes key patient metrics including:
-  - Number of emergency visits
-  - Number of inpatient visits
-  - Total diagnoses count
-  - Demographic information (race, gender)
-
-- **💊 Comprehensive Medication Tracking**: Monitors changes and statuses for 20 different diabetes medications including:
-  - Metformin
-  - Insulin
-  - Various combination medications
-  - Other common diabetes medications
-
-- **🎯 Real-time Risk Assessment**: Provides immediate readmission risk predictions with probability scores
-
-- **🎨 User-Friendly Interface**: Features an intuitive design with:
-  - Clear input sections
-  - Visual indicators
-  - Responsive layout
-  - Informative icons and color-coding
+- Patient Information Analysis
+  - Patient demographics
+  - Visit history data
+  - Diagnosis information
+  - Medication tracking
+- Risk prediction with probability scores
+- User-friendly healthcare interface
 
 ## 🛠️ Technology Stack
-- **Frontend**: Streamlit
-- **Machine Learning**: Scikit-learn (Pickle model)
-- **Data Processing**: Pandas
-- **Styling**: Custom CSS with Font Awesome icons
+- Frontend: Streamlit
+- ML Model: XGBoost
+- Data Analysis: Pandas
+- UI/UX: Custom CSS with Streamlit
 
 ## 💻 Local Development Setup
 1. Clone the repository:
@@ -61,11 +49,7 @@ streamlit run app.py
 ```
 
 ## 🤖 Model Information
-The application uses a machine learning model trained on historical diabetes patient data. The model considers multiple factors to predict readmission risk, including:
-- Patient demographics
-- Visit history
-- Medication changes
-- Current prescriptions
+The application uses an XGBoost model trained on historical diabetes patient data to predict readmission risk based on various patient factors.
 
 ## 📚 Dataset
 This project uses the Diabetes 130-US hospitals for years 1999-2008 dataset from the UCI Machine Learning Repository. You can find the dataset here:
@@ -75,7 +59,7 @@ This project uses the Diabetes 130-US hospitals for years 1999-2008 dataset from
 - Python 3.8+
 - Streamlit
 - Pandas
-- Scikit-learn
+- XGBoost
 - Pickle
 
 ## 🚀 Deployment
