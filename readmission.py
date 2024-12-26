@@ -9,7 +9,7 @@ def load_model():
 def main():
     st.set_page_config(layout="centered", page_title="Diabetes Readmission Risk Predictor")
     
-    # Custom CSS for a more professional look with icon styling
+    # Custom CSS with icon styling
     st.markdown("""
     <style>
         @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
