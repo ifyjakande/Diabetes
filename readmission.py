@@ -73,10 +73,6 @@ def main():
     """, unsafe_allow_html=True)
 
     st.markdown("<h1 class='main-title'><i class='fas fa-heartbeat'></i> Diabetes Readmission Risk Predictor</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='subtitle'>Developed by Ifeanyi Ejiofor</p>", unsafe_allow_html=True)
-    st.markdown("<p class='subtitle'>Student ID: B00898539</p>", unsafe_allow_html=True)
-    st.markdown("<p class='subtitle'>School of Computing, Engineering and Intelligent Systems, Magee Campus</p>", unsafe_allow_html=True)
-    st.markdown("<p class='subtitle'>Supervisor: Girijesh Prasad</p>", unsafe_allow_html=True)
 
     st.markdown("<p><i class='fas fa-info-circle'></i> This application predicts the 30-day readmission risk for diabetes patients based on various factors. Please fill in the form below with the patient's information to get a prediction.</p>", unsafe_allow_html=True)
 
